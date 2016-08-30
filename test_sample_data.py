@@ -49,7 +49,33 @@ dns2         IN     A       10.0.1.3
 ftp          IN     CNAME   server1
 mail         IN     CNAME   server1
 mail2        IN     CNAME   server2
-www          IN     CNAME   server2"""
+www          IN     CNAME   server2""",
+    "sample_4": """$TTL 172800
+$ORIGIN myzone.com.
+
+@ 3600 IN SOA dns1.example.com. hostmaster.example.com. (
+                1
+                3600
+                300
+                2419200
+                300
+                )
+
+@ 172800 IN NS ns1-08.example-dns.com.
+  172800 IN NS ns2-08.example-dns.net.
+  172800 IN NS ns3-08.example-dns.org.
+  172800 IN NS ns4-08.example-dns.info.
+
+arec 3600 IN A 10.0.0.10
+
+arec2 0 IN A 10.0.1.0
+      0 IN A 10.0.1.1
+
+txtrec 3600 IN TXT "mytxtvalue"
+       3600 IN TXT "mytxtvalue2"
+
+txtrec2 3600 IN TXT "hi"
+""",
 }
 
 zone_file_objects = {
