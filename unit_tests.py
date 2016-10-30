@@ -19,7 +19,7 @@ class ZoneFileTests(unittest.TestCase):
         self.assertTrue(isinstance(zone_file, (unicode, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
-        self.assertTrue("@ 1D URI" in zone_file)
+        self.assertTrue("@ 1D IN URI" in zone_file)
 
     def test_zone_file_creation_2(self):
         json_zone_file = zone_file_objects["sample_2"]
@@ -29,6 +29,10 @@ class ZoneFileTests(unittest.TestCase):
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ IN SOA" in zone_file)
+        # www has a TTL and a class
+        self.assertTrue("www 3600 IN A 127.0.0.1" in zone_file)
+        # mail has "_missing_class" set, confirm no class is output
+        self.assertTrue("mail 3600 A 127.0.0.1" in zone_file)
 
     def test_zone_file_creation_3(self):
         json_zone_file = zone_file_objects["sample_3"]
@@ -57,6 +61,23 @@ class ZoneFileTests(unittest.TestCase):
         self.assertTrue("cname" in zone_file)
         self.assertTrue("$ttl" in zone_file)
         self.assertTrue("$origin" in zone_file)
+
+        a_records = {record["name"]: record for record in zone_file["a"]}
+        # Confirm that all records have class "IN"
+        self.assertTrue(all([(record["class"] == "IN") for record in a_records.values()]))
+        # TTL and no CLASS
+        self.assertEqual(a_records["server1"].get("_missing_class"), True)
+        # CLASS and no TTL
+        self.assertEqual(a_records["server2"].get("_missing_class"), None)
+        # TTL and no CLASS
+        self.assertEqual(a_records["server3"].get("ttl"), 3600)
+        self.assertEqual(a_records["server3"].get("_missing_class"), True)
+        # TTL and CLASS
+        self.assertEqual(a_records["dns1"].get("ttl"), 3600)
+        self.assertEqual(a_records["dns1"].get("_missing_class"), None)
+        # Reversed TTL and CLASS field order
+        self.assertEqual(a_records["dns2"].get("ttl"), 3600)
+        self.assertEqual(a_records["dns2"].get("_missing_class"), None)
 
     def test_zone_file_parsing_3(self):
         zone_file = parse_zone_file(zone_files["sample_3"])

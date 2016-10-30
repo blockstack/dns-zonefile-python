@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='blockstack-zones',
-    version='0.1.6',
+    version='0.14.0',
     url='https://github.com/blockstack/dns-zone-file-py',
     license='MIT',
     author='Blockstack Developers',
