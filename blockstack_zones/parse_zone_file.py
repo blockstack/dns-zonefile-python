@@ -255,28 +255,33 @@ def remove_class(text):
     return "\n".join(ret)
 
 
-def add_default_name(text):
+def add_record_names(text):
     """
     Go through each line of the text and ensure that 
-    a name is defined.  Use '@' if there is none.
+    a name is defined.  Use previous record name if there is none.
     """
     global SUPPORTED_RECORDS
 
     lines = text.split("\n")
     ret = []
+    previous_record_name = None
     for line in lines:
         tokens = tokenize_line(line)
-        if len(tokens) == 0:
-            continue
 
-        if tokens[0] in SUPPORTED_RECORDS and not tokens[0].startswith("$"):
-            # add back the name
-            tokens = ['@'] + tokens 
+        if not tokens[0].startswith("$"):
+            has_name = not isinstance(tokens[0], (int)) \
+                and tokens[0] not in SUPPORTED_RECORDS
+
+            if has_name:
+                previous_record_name = tokens[0]
+
+            if not has_name:
+                # add back the name
+                tokens = [previous_record_name] + tokens
 
         ret.append(serialize(tokens))
 
     return "\n".join(ret)
-
 
 def parse_line(parser, record_token, parsed_records):
     """
@@ -372,6 +377,6 @@ def parse_zone_file(text, ignore_invalid=False):
     text = remove_comments(text)
     text = flatten(text)
     text = remove_class(text)
-    text = add_default_name(text)
+    text = add_record_names(text)
     json_zone_file = parse_lines(text, ignore_invalid=ignore_invalid)
     return json_zone_file
