@@ -15,10 +15,11 @@ www 10800 IN CNAME webredir.vip.gandi.net.
 $ORIGIN example.com
 $TTL 86400
 
-server1      IN     A       10.0.1.5
+server1      A              10.0.1.5
 server2      IN     A       10.0.1.7
-dns1         IN     A       10.0.1.2
-dns2         IN     A       10.0.1.3
+server3      3600   A       10.0.1.7
+dns1         3600   IN      A       10.0.1.2
+dns2         IN     3600    A       10.0.1.3
 
 ftp          IN     CNAME   server1
 mail         IN     CNAME   server1
@@ -59,9 +60,10 @@ zone_file_objects = {
     "uri": [{
       "name": "@",
       "ttl": "1D",
+      "class": "IN",
       "priority": 1,
       "weight": 10,
-      "target": "https://mq9.s3.amazonaws.com/naval.id/profile.json"
+      "target": "https://mq9.s3.amazonaws.com/naval.id/profile.json",
     }]
   },
   "sample_2": {
@@ -77,33 +79,33 @@ zone_file_objects = {
         "minimum": 86400
     },
     "ns": [
-        { "host": "NS1.NAMESERVER.NET." },
-        { "host": "NS2.NAMESERVER.NET." }
+        { "host": "NS1.NAMESERVER.NET.", "class": "IN" },
+        { "host": "NS2.NAMESERVER.NET.", "class": "IN" }
     ],
     "a": [
-        { "name": "@", "ip": "127.0.0.1" },
-        { "name": "www", "ip": "127.0.0.1" },
-        { "name": "mail", "ip": "127.0.0.1" }
+        { "name": "@", "ip": "127.0.0.1", "class": "IN", },
+        { "name": "www", "ip": "127.0.0.1", "class": "IN", "ttl": 3600 },
+        { "name": "mail", "ip": "127.0.0.1", "ttl": 3600, "_missing_class": True }
     ],
     "aaaa": [
-        { "ip": "::1" },
-        { "name": "mail", "ip": "2001:db8::1" }
+        { "ip": "::1", "class": "IN" },
+        { "name": "mail", "ip": "2001:db8::1", "class": "IN" }
     ],
     "cname": [
-        { "name": "mail1", "alias": "mail" },
-        { "name": "mail2", "alias": "mail" }
+        { "name": "mail1", "alias": "mail", "class": "IN" },
+        { "name": "mail2", "alias": "mail", "class": "IN" }
     ],
     "mx": [
-        { "preference": 0, "host": "mail1" },
-        { "preference": 10, "host": "mail2" }
+        { "preference": 0, "host": "mail1", "class": "IN" },
+        { "preference": 10, "host": "mail2", "class": "IN" }
     ],
     "txt": [
-        { "name": "txt1", "txt": "hello" },
-        { "name": "txt2", "txt": "world" }
+        { "name": "txt1", "txt": "hello", "class": "IN" },
+        { "name": "txt2", "txt": "world", "class": "IN" }
     ],
     "srv": [
-        { "name": "_xmpp-client._tcp", "target": "jabber", "priority": 10, "weight": 0, "port": 5222 },
-        { "name": "_xmpp-server._tcp", "target": "jabber", "priority": 10, "weight": 0, "port": 5269 }
+        { "name": "_xmpp-client._tcp", "class": "IN", "target": "jabber", "priority": 10, "weight": 0, "port": 5222 },
+        { "name": "_xmpp-server._tcp", "class": "IN", "target": "jabber", "priority": 10, "weight": 0, "port": 5269 }
     ]
   },
   "sample_3": {
@@ -119,25 +121,25 @@ zone_file_objects = {
         "minimum": 86400
     },
     "ns": [
-        { "host": "NS1.NAMESERVER.NET." },
-        { "host": "NS2.NAMESERVER.NET." }
+        { "host": "NS1.NAMESERVER.NET.", "class": "IN" },
+        { "host": "NS2.NAMESERVER.NET.", "class": "IN" }
     ],
     "a": [
-        { "name": "@", "ip": "127.0.0.1" },
-        { "name": "www", "ip": "127.0.0.1" },
-        { "name": "mail", "ip": "127.0.0.1" }
+        { "name": "@", "ip": "127.0.0.1", "class": "IN" },
+        { "name": "www", "ip": "127.0.0.1", "class": "IN" },
+        { "name": "mail", "ip": "127.0.0.1", "class": "IN" }
     ],
     "aaaa": [
-        { "ip": "::1" },
-        { "name": "mail", "ip": "2001:db8::1" }
+        { "ip": "::1", "class": "IN" },
+        { "name": "mail", "ip": "2001:db8::1", "class": "IN" }
     ],
     "cname":[
-        { "name": "mail1", "alias": "mail" },
-        { "name": "mail2", "alias": "mail" }
+        { "name": "mail1", "alias": "mail", "class": "IN" },
+        { "name": "mail2", "alias": "mail", "class": "IN" }
     ],
     "mx":[
-        { "preference": 0, "host": "mail1" },
-        { "preference": 10, "host": "mail2" }
+        { "preference": 0, "host": "mail1", "class": "IN" },
+        { "preference": 10, "host": "mail2", "class": "IN" }
     ]
   }
 }
