@@ -35,7 +35,7 @@ def make_zone_file(json_zone_file_input, origin=None, ttl=None, template=None):
     # careful...
     json_zone_file = copy.deepcopy(json_zone_file_input)
     if origin is not None:
-        json_zone_file['$origin'] = origin 
+        json_zone_file['$origin'] = origin
 
     if ttl is not None:
         json_zone_file['$ttl'] = ttl

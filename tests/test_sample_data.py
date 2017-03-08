@@ -77,33 +77,35 @@ zone_file_objects = {
         "minimum": 86400
     },
     "ns": [
-        { "host": "NS1.NAMESERVER.NET." },
-        { "host": "NS2.NAMESERVER.NET." }
+        {"host": "NS1.NAMESERVER.NET."},
+        {"host": "NS2.NAMESERVER.NET."}
     ],
     "a": [
-        { "name": "@", "ip": "127.0.0.1" },
-        { "name": "www", "ip": "127.0.0.1" },
-        { "name": "mail", "ip": "127.0.0.1" }
+        {"name": "@", "ip": "127.0.0.1"},
+        {"name": "www", "ip": "127.0.0.1"},
+        {"name": "mail", "ip": "127.0.0.1"}
     ],
     "aaaa": [
-        { "ip": "::1" },
-        { "name": "mail", "ip": "2001:db8::1" }
+        {"ip": "::1"},
+        {"name": "mail", "ip": "2001:db8::1"}
     ],
     "cname": [
-        { "name": "mail1", "alias": "mail" },
-        { "name": "mail2", "alias": "mail" }
+        {"name": "mail1", "alias": "mail"},
+        {"name": "mail2", "alias": "mail"}
     ],
     "mx": [
-        { "preference": 0, "host": "mail1" },
-        { "preference": 10, "host": "mail2" }
+        {"preference": 0, "host": "mail1"},
+        {"preference": 10, "host": "mail2"}
     ],
     "txt": [
-        { "name": "txt1", "txt": "hello" },
-        { "name": "txt2", "txt": "world" }
+        {"name": "txt1", "txt": "hello"},
+        {"name": "txt2", "txt": "world"}
     ],
     "srv": [
-        { "name": "_xmpp-client._tcp", "target": "jabber", "priority": 10, "weight": 0, "port": 5222 },
-        { "name": "_xmpp-server._tcp", "target": "jabber", "priority": 10, "weight": 0, "port": 5269 }
+        {"name": "_xmpp-client._tcp", "target": "jabber", "priority": 10,
+         "weight": 0, "port": 5222},
+        {"name": "_xmpp-server._tcp", "target": "jabber", "priority": 10,
+         "weight": 0, "port": 5269}
     ]
   },
   "sample_3": {
@@ -119,25 +121,25 @@ zone_file_objects = {
         "minimum": 86400
     },
     "ns": [
-        { "host": "NS1.NAMESERVER.NET." },
-        { "host": "NS2.NAMESERVER.NET." }
+        {"host": "NS1.NAMESERVER.NET."},
+        {"host": "NS2.NAMESERVER.NET."}
     ],
     "a": [
-        { "name": "@", "ip": "127.0.0.1" },
-        { "name": "www", "ip": "127.0.0.1" },
-        { "name": "mail", "ip": "127.0.0.1" }
+        {"name": "@", "ip": "127.0.0.1"},
+        {"name": "www", "ip": "127.0.0.1"},
+        {"name": "mail", "ip": "127.0.0.1"}
     ],
     "aaaa": [
-        { "ip": "::1" },
-        { "name": "mail", "ip": "2001:db8::1" }
+        {"ip": "::1"},
+        {"name": "mail", "ip": "2001:db8::1"}
     ],
-    "cname":[
-        { "name": "mail1", "alias": "mail" },
-        { "name": "mail2", "alias": "mail" }
+    "cname": [
+        {"name": "mail1", "alias": "mail"},
+        {"name": "mail2", "alias": "mail"}
     ],
-    "mx":[
-        { "preference": 0, "host": "mail1" },
-        { "preference": 10, "host": "mail2" }
+    "mx": [
+        {"preference": 0, "host": "mail1"},
+        {"preference": 10, "host": "mail2"}
     ]
   }
 }

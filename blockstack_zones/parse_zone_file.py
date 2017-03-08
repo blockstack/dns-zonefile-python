@@ -1,4 +1,4 @@
-#!/usr/bin/python 
+#!/usr/bin/python
 
 """
 Known limitations:
@@ -10,13 +10,10 @@ Known limitations:
     'TXT', 'SRV', 'SPF', 'URI'
 """
 
-import copy
-import datetime
-import time
 import argparse
 from collections import defaultdict
 
-from .configs import SUPPORTED_RECORDS, DEFAULT_TEMPLATE
+from .configs import SUPPORTED_RECORDS  # flake8: noqa
 from .exceptions import InvalidLineException
 
 
@@ -73,7 +70,8 @@ def make_parser():
     make_rr_subparser(subparsers, "MX", [("preference", str), ("host", str)])
     make_rr_subparser(subparsers, "TXT", [("txt", str)])
     make_rr_subparser(subparsers, "PTR", [("host", str)])
-    make_rr_subparser(subparsers, "SRV", [("priority", int), ("weight", int), ("port", int), ("target", str)])
+    make_rr_subparser(subparsers, "SRV", [("priority", int), ("weight", int), ("port", int),
+                                          ("target", str)])
     make_rr_subparser(subparsers, "SPF", [("data", str)])
     make_rr_subparser(subparsers, "URI", [("priority", int), ("weight", int), ("target", str)])
 
@@ -131,11 +129,11 @@ def tokenize_line(line):
                     continue
         elif c == ';':
             if not escape:
-                # comment 
+                # comment
                 ret.append(tokbuf)
                 tokbuf = ""
                 break
-            
+
         # normal character
         tokbuf += c
         escape = False
@@ -173,7 +171,7 @@ def remove_comments(text):
     lines = text.split("\n")
     for line in lines:
         if len(line) == 0:
-            continue 
+            continue
 
         line = serialize(tokenize_line(line))
         ret.append(line)
@@ -185,7 +183,7 @@ def flatten(text):
     """
     Flatten the text:
     * make sure each record is on one line.
-    * remove parenthesis 
+    * remove parenthesis
     """
     lines = text.split("\n")
 
@@ -193,10 +191,10 @@ def flatten(text):
     tokens = []
     for l in lines:
         if len(l) == 0:
-            continue 
+            continue
 
         l = l.replace("\t", " ")
-        tokens += filter(lambda x: len(x) > 0, l.split(" ")) + ['']
+        tokens += list(filter(lambda x: len(x) > 0, l.split(" "))) + ['']
 
     # find (...) and turn it into a single line ("capture" it)
     capturing = False
@@ -210,7 +208,7 @@ def flatten(text):
             if len(captured) > 0:
                 flattened.append(" ".join(captured))
                 captured = []
-            continue 
+            continue
 
         if tok.startswith("("):
             # begin grouping
@@ -220,7 +218,7 @@ def flatten(text):
         if capturing and tok.endswith(")"):
             # end grouping.  next end-of-line will turn this sequence into a flat line
             tok = tok.rstrip(")")
-            capturing = False 
+            capturing = False
 
         captured.append(tok)
 
@@ -257,7 +255,7 @@ def remove_class(text):
 
 def add_default_name(text):
     """
-    Go through each line of the text and ensure that 
+    Go through each line of the text and ensure that
     a name is defined.  Use '@' if there is none.
     """
     global SUPPORTED_RECORDS
@@ -271,7 +269,7 @@ def add_default_name(text):
 
         if tokens[0] in SUPPORTED_RECORDS and not tokens[0].startswith("$"):
             # add back the name
-            tokens = ['@'] + tokens 
+            tokens = ['@'] + tokens
 
         ret.append(serialize(tokens))
 
@@ -280,7 +278,7 @@ def add_default_name(text):
 
 def parse_line(parser, record_token, parsed_records):
     """
-    Given the parser, capitalized list of a line's tokens, and the current set of records 
+    Given the parser, capitalized list of a line's tokens, and the current set of records
     parsed so far, parse it into a dictionary.
 
     Return the new set of parsed records.
@@ -303,7 +301,7 @@ def parse_line(parser, record_token, parsed_records):
         rr, unmatched = parser.parse_known_args(record_token)
         assert len(unmatched) == 0, "Unmatched fields: %s" % unmatched
     except (SystemExit, AssertionError, InvalidLineException):
-        # invalid argument 
+        # invalid argument
         raise InvalidLineException(line)
 
     record_dict = rr.__dict__
@@ -320,7 +318,7 @@ def parse_line(parser, record_token, parsed_records):
     assert record_type is not None, "Unknown record type in %s" % rr
 
     # clean fields
-    for field in record_dict.keys():
+    for field in list(record_dict.keys()):
         if record_dict[field] is None:
             del record_dict[field]
 
@@ -329,7 +327,7 @@ def parse_line(parser, record_token, parsed_records):
     # special record-specific fix-ups
     if record_type == 'PTR':
         record_dict['fullname'] = record_dict['name'] + '.' + current_origin
-      
+
     if len(record_dict) > 0:
         if record_type.startswith("$"):
             # put the value directly

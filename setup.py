@@ -19,6 +19,7 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     install_requires=[
+        'future'
     ],
     classifiers=[
         'Intended Audience :: Developers',
