@@ -70,6 +70,20 @@ class ZoneFileTests(unittest.TestCase):
         self.assertTrue("$ttl" in zone_file)
         self.assertTrue("$origin" in zone_file)
 
+    def test_zone_file_parsing_4(self):
+        zone_file = parse_zone_file(zone_files["sample_4"])
+        #print json.dumps(zone_file, indent=2)
+        self.assertTrue(isinstance(zone_file, dict))
+        self.assertTrue("soa" in zone_file)
+        self.assertTrue("a" in zone_file)
+        self.assertTrue("$ttl" in zone_file)
+        self.assertTrue("$origin" in zone_file)
+
+        text_records = zone_file['txt']
+        self.assertTrue(len([r for r in text_records
+                             if r['name'] == 'txtrec']) == 2,
+                            'Unnamed records have correct name')
+
 def test_main():
     test_support.run_unittest(
         ZoneFileTests
