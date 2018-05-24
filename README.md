@@ -4,7 +4,7 @@
 [![PyPI](https://img.shields.io/pypi/v/blockstack-zones.svg)](https://pypi.python.org/pypi/blockstack-zones/)
 [![PyPI](https://img.shields.io/pypi/dm/blockstack-zones.svg)](https://pypi.python.org/pypi/blockstack-zones/)
 [![PyPI](https://img.shields.io/pypi/l/blockstack-zones.svg)](https://pypi.python.org/pypi/blockstack-zones/)
-[![Slack](http://slack.blockstack.org/badge.svg)](http://slack.blockstack.org/)
+[![Slack](https://img.shields.io/badge/join-slack-e32072.svg?style=flat)](http://slack.blockstack.org/)
 
 *A library for creating and parsing DNS zone files*
 
