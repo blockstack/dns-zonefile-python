@@ -75,7 +75,7 @@ www          IN     CNAME   server2
 #### Making Zone Files
 
 ```python
->>> records = {'uri': [{'priority': 1, 'target': 'https://mq9.s3.amazonaws.com/naval.id/profile.json', 'name': '@', 'weight': 10, 'ttl': '1D'}]}
+>>> records = {'uri': [{'priority': 1, 'target': 'https://mq9.s3.amazonaws.com/naval.id/profile.json', 'name': '_http._tcp', 'weight': 10, 'ttl': '86400'}]}
 >>> zone_file = make_zone_file(records, origin="ryan.id", ttl="3600")
 >>> print zone_file
 ```
@@ -83,5 +83,5 @@ www          IN     CNAME   server2
 ```
 $ORIGIN ryan.id
 $TTL 3600
-@ 1D URI 1 10 "https://mq9.s3.amazonaws.com/naval.id/profile.json"
+_http._tcp 86400 URI 1 10 "https://mq9.s3.amazonaws.com/naval.id/profile.json"
 ```
