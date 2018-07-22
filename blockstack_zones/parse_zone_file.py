@@ -341,7 +341,7 @@ def parse_line(parser, record_token, parsed_records):
         if record_dict[field] is None:
             del record_dict[field]
 
-    current_origin = record_dict.get('$ORIGIN', parsed_records.get('$ORIGIN', None))
+    current_origin = record_dict.get('$origin', parsed_records.get('$origin', None))
 
     # special record-specific fix-ups
     if record_type == 'PTR':
