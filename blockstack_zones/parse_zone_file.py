@@ -279,6 +279,7 @@ def add_default_name(text):
 
     lines = text.split("\n")
     ret = []
+    lastname = '@'
     for line in lines:
         tokens = tokenize_line(line)
         if len(tokens) == 0:
@@ -286,8 +287,9 @@ def add_default_name(text):
 
         if tokens[0] in SUPPORTED_RECORDS and not tokens[0].startswith("$"):
             # add back the name
-            tokens = ['@'] + tokens 
-
+            tokens = [lastname] + tokens
+        else:
+            lastname = tokens[0]
         ret.append(serialize(tokens))
 
     return "\n".join(ret)
