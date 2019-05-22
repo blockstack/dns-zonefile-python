@@ -41,7 +41,7 @@ def make_zone_file(json_zone_file_input, origin=None, ttl=None, template=None):
     if ttl is not None:
         json_zone_file['$ttl'] = ttl
 
-    soa_records = [json_zone_file.get('soa')] if json_zone_file.get('soa') else None
+    soa_records = json_zone_file.get('soa', None)
 
     zone_file = template
     zone_file = process_origin(json_zone_file.get('$origin', None), zone_file)
