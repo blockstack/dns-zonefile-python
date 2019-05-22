@@ -88,6 +88,7 @@ def make_parser():
     make_txt_subparser(subparsers)
     make_rr_subparser(subparsers, "PTR", [("host", str)])
     make_rr_subparser(subparsers, "SRV", [("priority", int), ("weight", int), ("port", int), ("target", str)])
+    make_rr_subparser(subparsers, "CAA", [("flag", int), ("tag", str), ("value", str)])
     make_rr_subparser(subparsers, "SPF", [("data", str)])
     make_rr_subparser(subparsers, "URI", [("priority", int), ("weight", int), ("target", str)])
 

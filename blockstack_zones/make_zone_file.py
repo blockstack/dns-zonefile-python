@@ -1,7 +1,7 @@
 from .record_processors import (
     process_origin, process_ttl, process_soa, process_ns, process_a,
     process_aaaa, process_cname, process_alias, process_mx, process_ptr,
-    process_txt, process_srv, process_spf, process_uri
+    process_txt, process_srv, process_spf, process_uri, process_caa
 )
 from .configs import DEFAULT_TEMPLATE
 import copy
@@ -48,6 +48,7 @@ def make_zone_file(json_zone_file_input, origin=None, ttl=None, template=None):
     zone_file = process_ttl(json_zone_file.get('$ttl', None), zone_file)
     zone_file = process_soa(soa_records, zone_file)
     zone_file = process_ns(json_zone_file.get('ns', None), zone_file)
+    zone_file = process_caa(json_zone_file.get('caa', None), zone_file)
     zone_file = process_a(json_zone_file.get('a', None), zone_file)
     zone_file = process_aaaa(json_zone_file.get('aaaa', None), zone_file)
     zone_file = process_cname(json_zone_file.get('cname', None), zone_file)

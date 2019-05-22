@@ -197,6 +197,12 @@ def process_srv(data, template):
     """
     return process_rr(data, "SRV", ["priority", "weight", "port", "target"], "{srv}", template)
 
+def process_caa(data, template):
+    """
+    Replace {caa} in template with the serialized CAA records
+    """
+    return process_rr(data, "CAA", ["flag", "tag", "value"], "{caa}", template)
+
 
 def process_spf(data, template):
     """
