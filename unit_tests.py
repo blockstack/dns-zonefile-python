@@ -1,9 +1,11 @@
+from __future__ import print_function
+from __future__ import absolute_import
 import json
 import traceback
 import unittest
 from test import test_support
-from blockstack_zones import make_zone_file, parse_zone_file
-from test_sample_data import zone_files, zone_file_objects
+from .blockstack_zones import make_zone_file, parse_zone_file
+from .test_sample_data import zone_files, zone_file_objects
 
 class ZoneFileTests(unittest.TestCase):
     def setUp(self):
@@ -39,7 +41,7 @@ class ZoneFileTests(unittest.TestCase):
     def test_zone_file_creation_txt(self):
         json_zone_file = zone_file_objects["sample_txt_1"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
+        print(zone_file)
         self.assertTrue(isinstance(zone_file, (unicode, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
@@ -71,7 +73,7 @@ class ZoneFileTests(unittest.TestCase):
     def test_zone_file_creation_1(self):
         json_zone_file = zone_file_objects["sample_1"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
+        print(zone_file)
         self.assertTrue(isinstance(zone_file, (unicode, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
@@ -80,7 +82,7 @@ class ZoneFileTests(unittest.TestCase):
     def test_zone_file_creation_2(self):
         json_zone_file = zone_file_objects["sample_2"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
+        print(zone_file)
         self.assertTrue(isinstance(zone_file, (unicode, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
@@ -89,7 +91,7 @@ class ZoneFileTests(unittest.TestCase):
     def test_zone_file_creation_3(self):
         json_zone_file = zone_file_objects["sample_3"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
+        print(zone_file)
         self.assertTrue(isinstance(zone_file, (unicode, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
@@ -97,7 +99,7 @@ class ZoneFileTests(unittest.TestCase):
 
     def test_zone_file_parsing_1(self):
         zone_file = parse_zone_file(zone_files["sample_1"])
-        print json.dumps(zone_file, indent=2)
+        print(json.dumps(zone_file, indent=2))
         self.assertTrue(isinstance(zone_file, dict))
         self.assertTrue("a" in zone_file)
         self.assertTrue("cname" in zone_file)
