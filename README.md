@@ -1,12 +1,10 @@
 # DNS Zone File Library
 
-[![CircleCI](https://img.shields.io/circleci/project/blockstack/dns-zone-file-py/master.svg)](https://circleci.com/gh/blockstack/dns-zone-file-py/tree/master)
-[![PyPI](https://img.shields.io/pypi/v/blockstack-zones.svg)](https://pypi.python.org/pypi/blockstack-zones/)
-[![PyPI](https://img.shields.io/pypi/dm/blockstack-zones.svg)](https://pypi.python.org/pypi/blockstack-zones/)
-[![PyPI](https://img.shields.io/pypi/l/blockstack-zones.svg)](https://pypi.python.org/pypi/blockstack-zones/)
-[![Slack](http://slack.blockstack.org/badge.svg)](http://slack.blockstack.org/)
+[![PyPI](https://img.shields.io/pypi/v/blockstack-zones-py3.svg)](https://pypi.org/project/blockstack-zones-py3/)
 
-*A library for creating and parsing DNS zone files*
+*A library for creating and parsing DNS zone files.*
+
+This is a Python3 fork of [the original](https://github.com/blockstack/zone-file-py).
 
 #### Zone File Example
 
