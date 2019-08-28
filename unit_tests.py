@@ -3,9 +3,8 @@ from __future__ import absolute_import
 import json
 import traceback
 import unittest
-from test import test_support
-from .blockstack_zones import make_zone_file, parse_zone_file
-from .test_sample_data import zone_files, zone_file_objects
+from blockstack_zones import make_zone_file, parse_zone_file
+from test_sample_data import zone_files, zone_file_objects
 
 class ZoneFileTests(unittest.TestCase):
     def setUp(self):
@@ -31,11 +30,11 @@ class ZoneFileTests(unittest.TestCase):
         self.assertEqual(zone_file["txt"][1]["ttl"], 100)
         self.assertEqual(zone_file["txt"][1]["txt"], "everything I do")
         self.assertEqual(zone_file["txt"][2]["name"], "multi")
-        self.assertEqual(zone_file["txt"][2]["txt"], 
+        self.assertEqual(zone_file["txt"][2]["txt"],
                          ["everything I do", "I do for you"])
         self.assertEqual(zone_file["txt"][3]["name"], "multiTTL")
         self.assertEqual(zone_file["txt"][3]["ttl"], 100)
-        self.assertEqual(zone_file["txt"][3]["txt"], 
+        self.assertEqual(zone_file["txt"][3]["txt"],
                          ["everything I do", "I do for you"])
 
     def test_zone_file_creation_txt(self):
@@ -63,12 +62,12 @@ class ZoneFileTests(unittest.TestCase):
         self.assertEqual(zone_file["txt"][1]["ttl"], 100)
         self.assertEqual(zone_file["txt"][1]["txt"], "everything I do")
         self.assertEqual(zone_file["txt"][2]["name"], "multi")
-        self.assertEqual(zone_file["txt"][2]["txt"], 
+        self.assertEqual(zone_file["txt"][2]["txt"],
                          ["everything I do", "I do for you"])
         self.assertEqual(zone_file["txt"][3]["name"], "multiTTL")
         self.assertEqual(zone_file["txt"][3]["ttl"], 100)
-        self.assertEqual(zone_file["txt"][3]["txt"], 
-                         ["everything I do", "I do for you"])        
+        self.assertEqual(zone_file["txt"][3]["txt"],
+                         ["everything I do", "I do for you"])
 
     def test_zone_file_creation_1(self):
         json_zone_file = zone_file_objects["sample_1"]
@@ -131,11 +130,6 @@ class ZoneFileTests(unittest.TestCase):
         self.assertTrue("$ttl" in zone_file)
         self.assertTrue("$origin" in zone_file)
 
-def test_main():
-    test_support.run_unittest(
-        ZoneFileTests
-    )
-
 
 if __name__ == '__main__':
-    test_main()
+    unittest.main()
