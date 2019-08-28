@@ -1,5 +1,3 @@
-from __future__ import print_function
-from __future__ import absolute_import
 import json
 import unittest
 from blockstack_zones import make_zone_file, parse_zone_file

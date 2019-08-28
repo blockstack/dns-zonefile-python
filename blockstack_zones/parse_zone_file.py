@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 """
 Known limitations:
     * only one $ORIGIN and one $TTL are supported
@@ -13,7 +11,8 @@ Known limitations:
 import argparse
 from collections import defaultdict
 
-from .exceptions import InvalidLineException
+from blockstack_zones.configs import SUPPORTED_RECORDS
+from blockstack_zones.exceptions import InvalidLineException
 
 
 class ZonefileLineParser(argparse.ArgumentParser):
@@ -271,8 +270,6 @@ def add_default_name(text):
     Go through each line of the text and ensure that
     a name is defined.  Use '@' if there is none.
     """
-    global SUPPORTED_RECORDS
-
     lines = text.split("\n")
     ret = []
     for line in lines:
@@ -297,8 +294,6 @@ def parse_line(parser, record_token, parsed_records):
     Return the new set of parsed records.
     Raise an exception on error.
     """
-
-    global SUPPORTED_RECORDS
 
     line = " ".join(record_token)
 
