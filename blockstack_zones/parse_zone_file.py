@@ -210,7 +210,7 @@ def flatten(text):
             continue 
 
         l = l.replace("\t", " ")
-        tokens += filter(lambda x: len(x) > 0, l.split(" ")) + ['']
+        tokens += [x for x in l.split(" ") if len(x) > 0] + ['']
 
     # find (...) and turn it into a single line ("capture" it)
     capturing = False
@@ -327,7 +327,7 @@ def parse_line(parser, record_token, parsed_records):
 
     # what kind of record? including origin and ttl
     record_type = None
-    for key in record_dict.keys():
+    for key in list(record_dict.keys()):
         if key in SUPPORTED_RECORDS and (key.startswith("$") or record_dict[key] == key):
             record_type = key
             if record_dict[key] == key:
@@ -337,7 +337,7 @@ def parse_line(parser, record_token, parsed_records):
     assert record_type is not None, "Unknown record type in %s" % rr
 
     # clean fields
-    for field in record_dict.keys():
+    for field in list(record_dict.keys()):
         if record_dict[field] is None:
             del record_dict[field]
 

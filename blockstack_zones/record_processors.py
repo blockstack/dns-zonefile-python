@@ -1,3 +1,5 @@
+from builtins import str
+from builtins import range
 import copy
 
 
@@ -39,7 +41,7 @@ def process_soa(data, template):
         param_fields = ['serial', 'refresh', 'retry', 'expire', 'minimum']
 
         for f in domain_fields + param_fields:
-            assert f in data.keys(), "Missing '%s' (%s)" % (f, data)
+            assert f in list(data.keys()), "Missing '%s' (%s)" % (f, data)
 
         data_name = str(data.get('name', '@'))
         soadat.append(data_name)
@@ -81,7 +83,7 @@ def quote_field(data, field):
         return None 
 
     data_dup = copy.deepcopy(data)
-    for i in xrange(0, len(data_dup)):
+    for i in range(0, len(data_dup)):
         data_dup[i][field] = '"%s"' % data_dup[i][field]
         data_dup[i][field] = data_dup[i][field].replace(";", "\;")
 
@@ -107,10 +109,10 @@ def process_rr(data, record_type, record_keys, field, template):
     assert type(data) == list, "Data must be a list"
 
     record = ""
-    for i in xrange(0, len(data)):
+    for i in range(0, len(data)):
 
         for record_key in record_keys:
-            assert record_key in data[i].keys(), "Missing '%s'" % record_key
+            assert record_key in list(data[i].keys()), "Missing '%s'" % record_key
 
         record_data = []
         record_data.append( str(data[i].get('name', '@')) )

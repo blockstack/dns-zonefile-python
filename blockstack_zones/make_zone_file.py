@@ -61,9 +61,7 @@ def make_zone_file(json_zone_file_input, origin=None, ttl=None, template=None):
 
     # remove newlines, but terminate with one
     zone_file = "\n".join(
-        filter(
-            lambda l: len(l.strip()) > 0, [tl.strip() for tl in zone_file.split("\n")]
-        )
+        [l for l in [tl.strip() for tl in zone_file.split("\n")] if len(l.strip()) > 0]
     ) + "\n"
 
     return zone_file

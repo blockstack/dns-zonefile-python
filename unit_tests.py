@@ -42,7 +42,7 @@ class ZoneFileTests(unittest.TestCase):
         json_zone_file = zone_file_objects["sample_txt_1"]
         zone_file = make_zone_file(json_zone_file)
         print(zone_file)
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ IN SOA" in zone_file)
@@ -74,7 +74,7 @@ class ZoneFileTests(unittest.TestCase):
         json_zone_file = zone_file_objects["sample_1"]
         zone_file = make_zone_file(json_zone_file)
         print(zone_file)
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ 1D URI" in zone_file)
@@ -83,7 +83,7 @@ class ZoneFileTests(unittest.TestCase):
         json_zone_file = zone_file_objects["sample_2"]
         zone_file = make_zone_file(json_zone_file)
         print(zone_file)
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ IN SOA" in zone_file)
@@ -92,7 +92,7 @@ class ZoneFileTests(unittest.TestCase):
         json_zone_file = zone_file_objects["sample_3"]
         zone_file = make_zone_file(json_zone_file)
         print(zone_file)
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ IN SOA" in zone_file)
