@@ -292,7 +292,7 @@ def add_default_name(text):
     return "\n".join(ret)
 
 
-def parse_line(parser, record_token, parsed_records):
+def parse_line(parser, record_token, parsed_records, last_line):
     """
     Given the parser, capitalized list of a line's tokens, and the current set of records 
     parsed so far, parse it into a dictionary.
@@ -302,6 +302,14 @@ def parse_line(parser, record_token, parsed_records):
     """
 
     global SUPPORTED_RECORDS
+
+    if (last_line and record_token[0] == last_line[1] and len(record_token) == (len(last_line) - 1)):
+        # Line is prefixed with blank. Therefore, the owner is the same as that of the previous RR
+        # This is the case when two records with the same name have different targets or types.
+        # See RFC1034, sect. 3.6.1. Textual expression of RRs
+        token_ammendment = [last_line[0]]
+        token_ammendment.extend(record_token)
+        record_token = token_ammendment
 
     line = " ".join(record_token)
 
@@ -368,17 +376,17 @@ def parse_lines(text, ignore_invalid=False):
     json_zone_file = defaultdict(list)
     record_lines = text.split("\n")
     parser = make_parser()
-
+    last_line = None
     for record_line in record_lines:
         record_token = tokenize_line(record_line)
         try:
-            json_zone_file = parse_line(parser, record_token, json_zone_file)
+            json_zone_file = parse_line(parser, record_token, json_zone_file, last_line)
         except InvalidLineException:
             if ignore_invalid:
                 continue
             else:
                 raise
-
+        last_line = record_line
     return json_zone_file
 
 
