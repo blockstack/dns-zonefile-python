@@ -34,6 +34,9 @@ class ZoneFileTests(unittest.TestCase):
         self.assertEqual(zone_file["txt"][3]["ttl"], 100)
         self.assertEqual(zone_file["txt"][3]["txt"],
                          ["everything I do", "I do for you"])
+        self.assertEqual(zone_file["txt"][4]["name"], "semiColonText")
+        self.assertEqual(zone_file["txt"][4]["ttl"], 3600)
+        self.assertEqual(zone_file["txt"][4]["txt"],"v=DMARC1; p=none; rua=mailto:example@example.com; ruf=mailto:example@example.com; fo=1")
 
     def test_zone_file_creation_txt(self):
         json_zone_file = zone_file_objects["sample_txt_1"]
