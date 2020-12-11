@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='blockstack-zones-py3',
-    version='0.19.0.0',
+    version='0.19.1',
     url='https://github.com/jaywink/zone-file-py',
     license='MIT',
     author='Blockstack Developers',
@@ -29,6 +29,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Internet',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ]
