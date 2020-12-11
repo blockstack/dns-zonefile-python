@@ -1,9 +1,9 @@
-from .record_processors import (
+from blockstack_zones.record_processors import (
     process_origin, process_ttl, process_soa, process_ns, process_a,
     process_aaaa, process_cname, process_alias, process_mx, process_ptr,
     process_txt, process_srv, process_spf, process_uri
 )
-from .configs import DEFAULT_TEMPLATE
+from blockstack_zones.configs import DEFAULT_TEMPLATE
 import copy
 
 
@@ -36,7 +36,7 @@ def make_zone_file(json_zone_file_input, origin=None, ttl=None, template=None):
     # careful...
     json_zone_file = copy.deepcopy(json_zone_file_input)
     if origin is not None:
-        json_zone_file['$origin'] = origin 
+        json_zone_file['$origin'] = origin
 
     if ttl is not None:
         json_zone_file['$ttl'] = ttl
@@ -61,9 +61,7 @@ def make_zone_file(json_zone_file_input, origin=None, ttl=None, template=None):
 
     # remove newlines, but terminate with one
     zone_file = "\n".join(
-        filter(
-            lambda l: len(l.strip()) > 0, [tl.strip() for tl in zone_file.split("\n")]
-        )
+        [l for l in [tl.strip() for tl in zone_file.split("\n")] if len(l.strip()) > 0]
     ) + "\n"
 
     return zone_file

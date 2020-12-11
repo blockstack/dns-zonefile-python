@@ -86,6 +86,7 @@ single            IN     TXT     "everything I do"
 singleTTL  100    IN     TXT     "everything I do"
 multi             IN     TXT     "everything I do" "I do for you"
 multiTTL  100     IN     TXT     "everything I do" "I do for you"
+semiColonText 3600 IN TXT "v=DMARC1; p=none; rua=mailto:example@example.com; ruf=mailto:example@example.com; fo=1"
 """
 }
 
@@ -220,7 +221,8 @@ zone_file_objects = {
         {'name' : 'single', 'txt': 'everything I do'},
         {'name' : 'singleTTL', 'ttl': 100, 'txt': 'everything I do'},
         {'name' : 'multi', 'txt': ['everything I do', 'I do for you']},
-        {'name' : 'multiTTL', 'ttl': 100, 'txt': ['everything I do', 'I do for you']}
+        {'name' : 'multiTTL', 'ttl': 100, 'txt': ['everything I do', 'I do for you']},
+        {'name' : 'semiColonText', 'ttl': 3600, 'txt':'v=DMARC1; p=none; rua=mailto:example@example.com; ruf=mailto:example@example.com; fo=1'}
     ]
   }
 }

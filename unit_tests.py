@@ -1,9 +1,8 @@
 import json
-import traceback
 import unittest
-from test import test_support
 from blockstack_zones import make_zone_file, parse_zone_file
 from test_sample_data import zone_files, zone_file_objects
+
 
 class ZoneFileTests(unittest.TestCase):
     def setUp(self):
@@ -29,18 +28,21 @@ class ZoneFileTests(unittest.TestCase):
         self.assertEqual(zone_file["txt"][1]["ttl"], 100)
         self.assertEqual(zone_file["txt"][1]["txt"], "everything I do")
         self.assertEqual(zone_file["txt"][2]["name"], "multi")
-        self.assertEqual(zone_file["txt"][2]["txt"], 
+        self.assertEqual(zone_file["txt"][2]["txt"],
                          ["everything I do", "I do for you"])
         self.assertEqual(zone_file["txt"][3]["name"], "multiTTL")
         self.assertEqual(zone_file["txt"][3]["ttl"], 100)
-        self.assertEqual(zone_file["txt"][3]["txt"], 
+        self.assertEqual(zone_file["txt"][3]["txt"],
                          ["everything I do", "I do for you"])
+        self.assertEqual(zone_file["txt"][4]["name"], "semiColonText")
+        self.assertEqual(zone_file["txt"][4]["ttl"], 3600)
+        self.assertEqual(zone_file["txt"][4]["txt"],"v=DMARC1; p=none; rua=mailto:example@example.com; ruf=mailto:example@example.com; fo=1")
 
     def test_zone_file_creation_txt(self):
         json_zone_file = zone_file_objects["sample_txt_1"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        print(zone_file)
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ IN SOA" in zone_file)
@@ -61,18 +63,18 @@ class ZoneFileTests(unittest.TestCase):
         self.assertEqual(zone_file["txt"][1]["ttl"], 100)
         self.assertEqual(zone_file["txt"][1]["txt"], "everything I do")
         self.assertEqual(zone_file["txt"][2]["name"], "multi")
-        self.assertEqual(zone_file["txt"][2]["txt"], 
+        self.assertEqual(zone_file["txt"][2]["txt"],
                          ["everything I do", "I do for you"])
         self.assertEqual(zone_file["txt"][3]["name"], "multiTTL")
         self.assertEqual(zone_file["txt"][3]["ttl"], 100)
-        self.assertEqual(zone_file["txt"][3]["txt"], 
-                         ["everything I do", "I do for you"])        
+        self.assertEqual(zone_file["txt"][3]["txt"],
+                         ["everything I do", "I do for you"])
 
     def test_zone_file_creation_1(self):
         json_zone_file = zone_file_objects["sample_1"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        print(zone_file)
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ 1D URI" in zone_file)
@@ -80,8 +82,8 @@ class ZoneFileTests(unittest.TestCase):
     def test_zone_file_creation_2(self):
         json_zone_file = zone_file_objects["sample_2"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        print(zone_file)
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ IN SOA" in zone_file)
@@ -89,15 +91,15 @@ class ZoneFileTests(unittest.TestCase):
     def test_zone_file_creation_3(self):
         json_zone_file = zone_file_objects["sample_3"]
         zone_file = make_zone_file(json_zone_file)
-        print zone_file
-        self.assertTrue(isinstance(zone_file, (unicode, str)))
+        print(zone_file)
+        self.assertTrue(isinstance(zone_file, (str, str)))
         self.assertTrue("$ORIGIN" in zone_file)
         self.assertTrue("$TTL" in zone_file)
         self.assertTrue("@ IN SOA" in zone_file)
 
     def test_zone_file_parsing_1(self):
         zone_file = parse_zone_file(zone_files["sample_1"])
-        print json.dumps(zone_file, indent=2)
+        print(json.dumps(zone_file, indent=2))
         self.assertTrue(isinstance(zone_file, dict))
         self.assertTrue("a" in zone_file)
         self.assertTrue("cname" in zone_file)
@@ -129,11 +131,6 @@ class ZoneFileTests(unittest.TestCase):
         self.assertTrue("$ttl" in zone_file)
         self.assertTrue("$origin" in zone_file)
 
-def test_main():
-    test_support.run_unittest(
-        ZoneFileTests
-    )
-
 
 if __name__ == '__main__':
-    test_main()
+    unittest.main()
