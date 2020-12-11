@@ -140,7 +140,9 @@ def tokenize_line(line):
                     quote = True
                     continue
         elif c == ';':
-            if not escape:
+            # if there is a ";" in a quoted string it should be treated as valid.
+            # DMARC records as an example.
+            if not escape and quote is False:
                 # comment
                 ret.append(tokbuf)
                 tokbuf = ""
